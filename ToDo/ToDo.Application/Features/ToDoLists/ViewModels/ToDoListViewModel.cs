@@ -18,7 +18,7 @@ namespace ToDo.Application.Features.ToDoLists.ViewModels
         public ToDoListViewModel(ToDoList toDoList) : base(toDoList)
         {
             Name = toDoList.Name;
-            Description = toDoList.Name;
+            Description = toDoList.Description;
         }
 
         public string Name { get; set; }
