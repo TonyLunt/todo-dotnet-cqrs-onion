@@ -20,14 +20,14 @@ namespace ToDo.Infra.Data.Repositories
             Username = userService.GetUserName();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             var entity = await Context.Set<TEntity>().FindAsync(id);
             Context.Set<TEntity>().Remove(entity);
             await Save();
         }
 
-        public async Task<TEntity> Get(int id)
+        public async Task<TEntity> Get(Guid id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
@@ -57,6 +57,7 @@ namespace ToDo.Infra.Data.Repositories
             {
                 if (baseEntity.State == EntityState.Added)
                 {
+                    baseEntity.Entity.Id = Guid.NewGuid();
                     baseEntity.Entity.CreatedBy = Username;
                     baseEntity.Entity.CreatedDate = DateTime.UtcNow;
                 }

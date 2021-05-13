@@ -22,7 +22,7 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
         [Fact]
         public async Task ThrowExceptionIfNotExists()
         {
-            await Assert.ThrowsAnyAsync<Exception>(async () => await WidgetRepository.Delete(-1));
+            await Assert.ThrowsAnyAsync<Exception>(async () => await WidgetRepository.Delete(Guid.NewGuid()));
         }
     }
 }
