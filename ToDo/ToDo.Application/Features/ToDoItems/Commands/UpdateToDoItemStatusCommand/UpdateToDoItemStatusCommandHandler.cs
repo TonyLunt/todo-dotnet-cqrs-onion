@@ -11,22 +11,22 @@ using ToDo.Application.Features.ToDoItems.ViewModels;
 using ToDo.Application.Repositories;
 using ToDo.Domain.Entities;
 
-namespace ToDo.Application.Features.ToDoItems.Commands.RenameToDoItemCommand
+namespace ToDo.Application.Features.ToDoItems.Commands.UpdateToDoItemStatusCommand
 {
-    public class RenameToDoItemCommandHandler : ToDoItemBaseHandler, IRequestHandler<RenameToDoItemCommand, ToDoItemViewModel>
+    public class UpdateToDoItemStatusCommandHandler : ToDoItemBaseHandler, IRequestHandler<UpdateToDoItemStatusCommand, ToDoItemViewModel>
     {
-        public RenameToDoItemCommandHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<RenameToDoItemCommandHandler> logger) : base(toDoItemRepository, logger)
+        public UpdateToDoItemStatusCommandHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<UpdateToDoItemStatusCommandHandler> logger) : base(toDoItemRepository, logger)
         {
         }
 
-        public async Task<ToDoItemViewModel> Handle(RenameToDoItemCommand request, CancellationToken cancellationToken)
+        public async Task<ToDoItemViewModel> Handle(UpdateToDoItemStatusCommand request, CancellationToken cancellationToken)
         {
             var toDoItem = await ToDoItemRepository.Get(request.Id);
             if (toDoItem == null)
             {
                 throw new NotFoundException(request.Id, typeof(ToDoItem));
             }
-            toDoItem.Name = request.Name;
+            toDoItem.IsComplete = request.IsComplete;
 
             var updateResponse = await ToDoItemRepository.Update(toDoItem);
             var viewModel = new ToDoItemViewModel(updateResponse);

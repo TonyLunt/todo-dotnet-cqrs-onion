@@ -12,13 +12,11 @@ namespace ToDo.Application.Features.ToDoItems
     public class ToDoItemBaseHandler
     {
         protected IRepository<ToDoItem> ToDoItemRepository;
-        protected IRepository<ToDoList> ToDoListRepository;
-
         protected ILogger<ToDoItemBaseHandler> Logger;
-        public ToDoItemBaseHandler(IRepository<ToDoItem> toDoItemRepository, IRepository<ToDoList> toDoListRepository, ILogger<ToDoItemBaseHandler> logger)
+
+        public ToDoItemBaseHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<ToDoItemBaseHandler> logger)
         {
             ToDoItemRepository = toDoItemRepository;
-            ToDoListRepository = toDoListRepository;
             Logger = logger;
         }
     }

@@ -15,14 +15,16 @@ namespace ToDo.Application.Features.ToDoItems.Commands.CreateToDoItemCommand
 {
     public class CreateToDoItemCommandHandler : ToDoItemBaseHandler, IRequestHandler<CreateToDoItemCommand, ToDoItemViewModel>
     {
+        private IRepository<ToDoList> _toDoListRepository;
         public CreateToDoItemCommandHandler(IRepository<ToDoItem> toDoItemRepository, IRepository<ToDoList> toDoListepository, ILogger<CreateToDoItemCommandHandler> logger) 
-            : base(toDoItemRepository, toDoListepository, logger)
+            : base(toDoItemRepository, logger)
         {
+            _toDoListRepository = toDoListepository;
         }
 
         public async Task<ToDoItemViewModel> Handle(CreateToDoItemCommand request, CancellationToken cancellationToken)
         {
-            var toDoList = await ToDoListRepository.Get(request.ToDoListId);
+            var toDoList = await _toDoListRepository.Get(request.ToDoListId);
             if (toDoList == null)
             {
                 throw new NotFoundException(request.ToDoListId, typeof(ToDoList));
