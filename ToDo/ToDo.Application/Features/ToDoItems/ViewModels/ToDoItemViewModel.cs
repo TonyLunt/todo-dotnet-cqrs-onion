@@ -24,6 +24,6 @@ namespace ToDo.Application.Features.ToDoItems.ViewModels
 
         public string Name { get; set; }
         public bool IsComplete { get; set; }
-        public int ToDoListId { get; set; }
+        public Guid ToDoListId { get; set; }
     }
 }

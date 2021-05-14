@@ -11,7 +11,7 @@ namespace ToDo.Domain.Entities
     {
         public string Name { get; set; }
         public bool IsComplete { get; set; }
-        public int ToDoListId { get; set; }
+        public Guid ToDoListId { get; set; }
         public virtual ToDoList ToDoList { get; set; }
     }
 }
