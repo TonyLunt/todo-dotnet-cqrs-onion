@@ -25,7 +25,7 @@ namespace ToDo.Application.Features.ToDoItems.Commands.CreateToDoItemCommand
             var toDoList = await ToDoListRepository.Get(request.ToDoListId);
             if (toDoList == null)
             {
-                throw new NotFoundException(toDoList.Id, typeof(ToDoList));
+                throw new NotFoundException(request.ToDoListId, typeof(ToDoList));
             }
             ToDoItem toDoItem = (ToDoItem)request;
             var createResponse = await ToDoItemRepository.Insert(toDoItem);
