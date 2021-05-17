@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDo.Application.Services.UserService;
 using ToDo.Domain.Common;
 
 namespace ToDo.Infra.Data.EntityConfigurations
@@ -13,9 +14,7 @@ namespace ToDo.Infra.Data.EntityConfigurations
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            //Note the lack of configuration for the ID property.
-            //EF should be smart enough to sort this out by naming convention.
-
+            
             builder
                 .Property(x => x.CreatedBy)
                 .HasMaxLength(200)

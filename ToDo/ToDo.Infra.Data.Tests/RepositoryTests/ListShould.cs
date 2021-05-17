@@ -25,6 +25,20 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
         }
 
         [Fact]
+        public async Task NotReturnForOtherUser()
+        {
+            var count = 4;
+            var unexpectedWidgets = new List<Widget>();
+            for (int i = 0; i < count; i++)
+            {
+                unexpectedWidgets.Add(await SecondaryWidgetFactory.GetExisting());
+            }
+
+            var responseWidgets = await WidgetRepository.List();
+            Assert.All(unexpectedWidgets, unexpectedWidget => Assert.DoesNotContain(responseWidgets, responseWidget => unexpectedWidget.Id == responseWidget.Id));
+        }
+
+        [Fact]
         public async Task ReturnEmptyListIfNoneExists()
         {
             DataContext.Widgets.RemoveRange(DataContext.Widgets);

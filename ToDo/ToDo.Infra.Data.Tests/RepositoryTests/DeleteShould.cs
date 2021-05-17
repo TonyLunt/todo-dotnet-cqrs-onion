@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using ToDo.Application.Common.Exceptions;
 using ToDo.Infra.Data.Tests.RepositoryTests.Setup;
 using Xunit;
 
@@ -17,6 +15,13 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
             await WidgetRepository.Delete(widget.Id);
             var dbWidget = await DataContext.Widgets.FindAsync(widget.Id);
             Assert.Null(dbWidget);
+        }
+
+        [Fact]
+        public async Task ThrowExceptionIfForOtherUser()
+        {
+            var widget = await SecondaryWidgetFactory.GetExisting();
+            await Assert.ThrowsAsync<NotFoundException>(async () => await WidgetRepository.Delete(widget.Id));
         }
 
         [Fact]

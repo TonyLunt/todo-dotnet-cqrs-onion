@@ -19,7 +19,7 @@ namespace ToDo.Infra.Data.Repositories
 
         public async Task<List<ToDoItem>> GetForList(Guid id)
         {
-            var toDoItems = await Context.Set<ToDoItem>().Where(x => x.ToDoListId == id).ToListAsync();
+            var toDoItems = await Queryable.Where(x => x.ToDoListId == id).ToListAsync();
             return toDoItems;
         }
     }

@@ -14,12 +14,19 @@ namespace ToDo.Infra.Data.Tests.ToDoItemRepositoryTests.Setup
         protected ToDoListFactory ToDoListFactory;
         protected ToDoItemRepository ToDoItemRepository;
         protected string Username;
+        protected UserAuthContext AuthContext;
         public ToDoItemTestBase()
         {
+            AuthContext = new UserAuthContext()
+            {
+                IsAuthenticated = true,
+                UniqueIdentifier = Guid.NewGuid(),
+                UserName = Guid.NewGuid().ToString()
+            };
             Username = Guid.NewGuid().ToString();
-            ToDoListFactory = new ToDoListFactory(DataContext);
+            ToDoListFactory = new ToDoListFactory(DataContext, AuthContext);
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetUserName()).Returns(Username);
+            mockUserService.Setup(x => x.GetUserAuthContext()).Returns(AuthContext);
             ToDoItemRepository = new ToDoItemRepository(DataContext, mockUserService.Object);
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDo.Application.Services.UserService;
 using ToDo.Domain.Entities;
 
 namespace ToDo.Infra.Data.Tests.ToDoItemRepositoryTests.Setup
@@ -10,9 +11,11 @@ namespace ToDo.Infra.Data.Tests.ToDoItemRepositoryTests.Setup
     public class ToDoListFactory
     {
         private ToDoContext _context;
-        public ToDoListFactory(ToDoContext context)
+        private UserAuthContext _authContext;
+        public ToDoListFactory(ToDoContext context, UserAuthContext userAuthContext)
         {
             _context = context;
+            _authContext = userAuthContext;
         }
 
         public async Task<ToDoList> GetPopulatedToDoList()
@@ -22,6 +25,7 @@ namespace ToDo.Infra.Data.Tests.ToDoItemRepositoryTests.Setup
             {
                 toDoItems.Add(new ToDoItem()
                 {
+                    UserId = _authContext.UniqueIdentifier,
                     UpdatedBy = Guid.NewGuid().ToString(),
                     CreatedBy = Guid.NewGuid().ToString(),
                     CreatedDate = DateTime.Now,
@@ -32,6 +36,7 @@ namespace ToDo.Infra.Data.Tests.ToDoItemRepositoryTests.Setup
             }
             var toDoList = new ToDoList()
             {
+                UserId = _authContext.UniqueIdentifier,
                 UpdatedBy = Guid.NewGuid().ToString(),
                 CreatedBy = Guid.NewGuid().ToString(),
                 CreatedDate = DateTime.Now,

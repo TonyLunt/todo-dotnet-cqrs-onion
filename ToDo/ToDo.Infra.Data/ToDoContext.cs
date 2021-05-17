@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDo.Application.Services.UserService;
+using ToDo.Domain.Common;
 using ToDo.Domain.Entities;
 using ToDo.Infra.Data.EntityConfigurations;
 
@@ -16,7 +18,6 @@ namespace ToDo.Infra.Data
 
         public ToDoContext(DbContextOptions<ToDoContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
