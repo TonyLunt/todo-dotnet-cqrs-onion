@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Application.Common.Exceptions;
+using ToDo.Application.Features.ToDoItems;
 using ToDo.Application.Features.ToDoItems.Commands.CreateToDoItemCommand;
 using ToDo.Application.Repositories;
 using ToDo.Domain.Entities;
@@ -19,7 +20,7 @@ namespace ToDo.Application.Tests.Features.ToDoItems.Commands.CreateToDoItemComma
         [Fact]
         public async Task ReturnToDoItemViewModel()
         {
-            var mockRepository = new Mock<IRepository<ToDoItem>>();
+            var mockRepository = new Mock<IToDoItemRepository>();
             var expectedToDoItem = Builder<ToDoItem>.CreateNew().Build();
             mockRepository.Setup(x => x.Insert(It.IsAny<ToDoItem>())).ReturnsAsync(expectedToDoItem);
 
@@ -35,7 +36,7 @@ namespace ToDo.Application.Tests.Features.ToDoItems.Commands.CreateToDoItemComma
         [Fact]
         public async Task ThrowExceptionIfToDoListNotFound()
         {
-            var mockRepository = new Mock<IRepository<ToDoItem>>();
+            var mockRepository = new Mock<IToDoItemRepository>();
             var expectedToDoItem = Builder<ToDoItem>.CreateNew().Build();
             mockRepository.Setup(x => x.Insert(It.IsAny<ToDoItem>())).ReturnsAsync(expectedToDoItem);
 

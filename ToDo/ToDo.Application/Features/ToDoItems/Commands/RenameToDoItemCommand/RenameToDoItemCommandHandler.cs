@@ -15,7 +15,7 @@ namespace ToDo.Application.Features.ToDoItems.Commands.RenameToDoItemCommand
 {
     public class RenameToDoItemCommandHandler : ToDoItemBaseHandler, IRequestHandler<RenameToDoItemCommand, ToDoItemViewModel>
     {
-        public RenameToDoItemCommandHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<RenameToDoItemCommandHandler> logger) : base(toDoItemRepository, logger)
+        public RenameToDoItemCommandHandler(IToDoItemRepository toDoItemRepository, ILogger<RenameToDoItemCommandHandler> logger) : base(toDoItemRepository, logger)
         {
         }
 

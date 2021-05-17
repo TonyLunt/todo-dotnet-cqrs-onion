@@ -25,7 +25,7 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
         {
             var widget = await WidgetFactory.GetExisting();
             var response = await WidgetRepository.Update(widget);
-            Assert.Equal(Username, response.UpdatedBy);
+            Assert.Equal(AuthContext.UserName, response.UpdatedBy);
         }
 
         [Fact]

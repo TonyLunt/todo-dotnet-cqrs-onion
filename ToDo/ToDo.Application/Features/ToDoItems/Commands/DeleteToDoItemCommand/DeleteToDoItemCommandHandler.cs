@@ -14,7 +14,7 @@ namespace ToDo.Application.Features.ToDoItems.Commands.DeleteToDoItemCommand
 {
     public class DeleteToDoItemCommandHandler : ToDoItemBaseHandler, IRequestHandler<DeleteToDoItemCommand, bool>
     {
-        public DeleteToDoItemCommandHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<DeleteToDoItemCommandHandler> logger) : base(toDoItemRepository, logger)
+        public DeleteToDoItemCommandHandler(IToDoItemRepository toDoItemRepository, ILogger<DeleteToDoItemCommandHandler> logger) : base(toDoItemRepository, logger)
         {
             
         }

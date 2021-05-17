@@ -15,7 +15,7 @@ namespace ToDo.Application.Features.ToDoItems.Commands.UpdateToDoItemStatusComma
 {
     public class UpdateToDoItemStatusCommandHandler : ToDoItemBaseHandler, IRequestHandler<UpdateToDoItemStatusCommand, ToDoItemViewModel>
     {
-        public UpdateToDoItemStatusCommandHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<UpdateToDoItemStatusCommandHandler> logger) : base(toDoItemRepository, logger)
+        public UpdateToDoItemStatusCommandHandler(IToDoItemRepository toDoItemRepository, ILogger<UpdateToDoItemStatusCommandHandler> logger) : base(toDoItemRepository, logger)
         {
         }
 

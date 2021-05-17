@@ -23,7 +23,7 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
         {
             var widget = WidgetFactory.GetNew();
             var response = await WidgetRepository.Insert(widget);
-            Assert.Equal(Username, response.CreatedBy);
+            Assert.Equal(AuthContext.UserName, response.CreatedBy);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
         {
             var widget = WidgetFactory.GetNew();
             var response = await WidgetRepository.Insert(widget);
-            Assert.Equal(Username, response.UpdatedBy);
+            Assert.Equal(AuthContext.UserName, response.UpdatedBy);
         }
 
         [Fact]

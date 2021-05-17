@@ -15,7 +15,7 @@ namespace ToDo.Application.Features.ToDoItems.Queries.GetToDoItemQuery
 {
     public class GetToDoItemQueryHandler : ToDoItemBaseHandler, IRequestHandler<GetToDoItemQuery, ToDoItemViewModel>
     {
-        public GetToDoItemQueryHandler(IRepository<ToDoItem> toDoItemRepository, ILogger<GetToDoItemQueryHandler> logger) : base(toDoItemRepository, logger)
+        public GetToDoItemQueryHandler(IToDoItemRepository toDoItemRepository, ILogger<GetToDoItemQueryHandler> logger) : base(toDoItemRepository, logger)
         {
         }
 

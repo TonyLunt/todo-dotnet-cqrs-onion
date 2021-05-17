@@ -33,6 +33,7 @@ namespace ToDo.Infra.Data.EntityConfigurations
             builder
                 .Property(x => x.UpdatedDate)
                 .IsRequired();
+
         }
     }
 }

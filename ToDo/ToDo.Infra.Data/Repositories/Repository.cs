@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Application.Repositories;
-using ToDo.Application.Services;
+using ToDo.Application.Services.UserService;
 using ToDo.Domain.Common;
 
 namespace ToDo.Infra.Data.Repositories
@@ -13,11 +13,13 @@ namespace ToDo.Infra.Data.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         protected DbContext Context;
-        public string Username;
+
+        protected UserAuthContext AuthContext;
         public Repository(DbContext context, IUserService userService)
         {
             Context = context;
-            Username = userService.GetUserName();
+            AuthContext = userService.GetUserAuthContext();
+            
         }
 
         public async Task Delete(Guid id)
@@ -58,14 +60,15 @@ namespace ToDo.Infra.Data.Repositories
                 if (baseEntity.State == EntityState.Added)
                 {
                     baseEntity.Entity.Id = Guid.NewGuid();
-                    baseEntity.Entity.CreatedBy = Username;
+                    baseEntity.Entity.UserId = AuthContext.UniqueIdentifier;
+                    baseEntity.Entity.CreatedBy = AuthContext.UserName;
                     baseEntity.Entity.CreatedDate = DateTime.UtcNow;
                 }
 
                 if (baseEntity.State == EntityState.Added
                     || baseEntity.State == EntityState.Modified)
                 {
-                    baseEntity.Entity.UpdatedBy = Username;
+                    baseEntity.Entity.UpdatedBy = AuthContext.UserName;
                     baseEntity.Entity.UpdatedDate = DateTime.UtcNow;
                 }
             }

@@ -16,7 +16,7 @@ namespace ToDo.Application.Features.ToDoItems.Commands.CreateToDoItemCommand
     public class CreateToDoItemCommandHandler : ToDoItemBaseHandler, IRequestHandler<CreateToDoItemCommand, ToDoItemViewModel>
     {
         private IRepository<ToDoList> _toDoListRepository;
-        public CreateToDoItemCommandHandler(IRepository<ToDoItem> toDoItemRepository, IRepository<ToDoList> toDoListepository, ILogger<CreateToDoItemCommandHandler> logger) 
+        public CreateToDoItemCommandHandler(IToDoItemRepository toDoItemRepository, IRepository<ToDoList> toDoListepository, ILogger<CreateToDoItemCommandHandler> logger) 
             : base(toDoItemRepository, logger)
         {
             _toDoListRepository = toDoListepository;
