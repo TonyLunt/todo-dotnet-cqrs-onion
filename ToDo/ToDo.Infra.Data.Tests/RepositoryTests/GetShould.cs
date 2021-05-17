@@ -19,10 +19,18 @@ namespace ToDo.Infra.Data.Tests.RepositoryTests
         }
 
         [Fact]
+        public async Task ReturnNullIfNotExistsForUser()
+        {
+            var widget = await SecondaryWidgetFactory.GetExisting();
+            var responseWidget = await WidgetRepository.Get(Guid.NewGuid());
+            Assert.Null(responseWidget);
+        }
+
+        [Fact]
         public async Task ReturnNullIfNotExists()
         {
             var widget = await WidgetFactory.GetExisting();
-            var responseWidget = await WidgetRepository.Get(-1);
+            var responseWidget = await WidgetRepository.Get(Guid.NewGuid());
             Assert.Null(responseWidget);
         }
     }

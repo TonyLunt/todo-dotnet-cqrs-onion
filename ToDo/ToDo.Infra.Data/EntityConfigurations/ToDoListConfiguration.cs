@@ -17,8 +17,12 @@ namespace ToDo.Infra.Data.EntityConfigurations
 
             builder
                 .Property(x => x.Name)
-                .HasMaxLength(500)
+                .HasMaxLength(100)
                 .IsRequired();
+
+            builder
+                .Property(x => x.Description)
+                .HasMaxLength(500);
 
             builder
                 .HasMany(x => x.ToDoItems)

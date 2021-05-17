@@ -10,10 +10,10 @@ namespace ToDo.Application.Repositories
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         Task<List<TEntity>> List();
-        Task<TEntity> Get(int id);
+        Task<TEntity> Get(Guid id);
         Task<TEntity> Insert(TEntity entity);
         Task<TEntity> Update(TEntity entity);
-        Task Delete(int id);
+        Task Delete(Guid id);
 
     }
 }
