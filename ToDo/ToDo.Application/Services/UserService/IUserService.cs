@@ -8,8 +8,6 @@ namespace ToDo.Application.Services.UserService
 {
     public interface IUserService
     {
-        string GetUserName();
-
         UserAuthContext GetUserAuthContext();
     }
 }
