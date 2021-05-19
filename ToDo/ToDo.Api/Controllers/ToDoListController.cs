@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDo.Application.Features.ToDoItems.Queries.GetToDoItemsForListQuery;
 using ToDo.Application.Features.ToDoLists.Commands.CreateToDoListCommand;
 using ToDo.Application.Features.ToDoLists.Commands.DeleteToDoListCommand;
 using ToDo.Application.Features.ToDoLists.Commands.RenameToDoListCommand;
@@ -37,11 +38,12 @@ namespace ToDo.Api.Controllers
             var response = await Mediator.Send(new GetToDoListQuery() { Id = id }, new System.Threading.CancellationToken());
             return Ok(response);
         }
+
         [HttpGet]
         [Route("{id}/Items")]
         public async Task<ActionResult<IEnumerable<ToDoListViewModel>>> GetToDoItems([FromRoute] Guid id)
         {
-            var response = await Mediator.Send(new GetToDoListQuery() { Id = id }, new System.Threading.CancellationToken());
+            var response = await Mediator.Send(new GetToDoItemsForListQuery() { Id = id }, new System.Threading.CancellationToken());
             return Ok(response);
         }
 
@@ -62,7 +64,6 @@ namespace ToDo.Api.Controllers
 
         [HttpPut]
         [Route("Description")]
-        [HttpPut]
         public async Task<ActionResult<ToDoListViewModel>> UpdateDescription(UpdateToDoListDescriptionCommand command)
         {
             var response = await Mediator.Send(command, new System.Threading.CancellationToken());

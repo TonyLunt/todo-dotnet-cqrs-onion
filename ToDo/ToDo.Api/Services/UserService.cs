@@ -14,9 +14,9 @@ namespace ToDo.Api.Services
         {
             _authContext = new UserAuthContext()
             {
-                //TODO: swap out for actual implemention 
+                //TODO: swap out for implementation of unique user ID per auth provider
                 UniqueIdentifier = default(Guid),
-                UserName = httpContextAccessor.HttpContext?.User?.Identity?.Name,
+                UserName = httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "Unauthenticated User",
                 IsAuthenticated = httpContextAccessor.HttpContext?.User?.Identity?.IsAuthenticated ?? false
             };
         }
