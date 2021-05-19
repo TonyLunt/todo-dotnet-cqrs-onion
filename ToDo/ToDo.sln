@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Api", "ToDo.Api\ToDo.Api.csproj", "{738DDE39-0A67-4A6B-8495-6CE1C9DC71BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Api", "ToDo.Api\ToDo.Api.csproj", "{738DDE39-0A67-4A6B-8495-6CE1C9DC71BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Api.Tests", "ToDo.Api.Tests\ToDo.Api.Tests.csproj", "{A510073E-D54C-4DA7-93FC-4D5EF3A3AE24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Api.Tests", "ToDo.Api.Tests\ToDo.Api.Tests.csproj", "{A510073E-D54C-4DA7-93FC-4D5EF3A3AE24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Domain", "ToDo.Domain\ToDo.Domain.csproj", "{A60DC446-5F33-4B31-B362-A0599FAC2016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Domain", "ToDo.Domain\ToDo.Domain.csproj", "{A60DC446-5F33-4B31-B362-A0599FAC2016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra.Data", "ToDo.Infra.Data\ToDo.Infra.Data.csproj", "{C31E7DAB-389B-4213-B981-56179687F03C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Infra.Data", "ToDo.Infra.Data\ToDo.Infra.Data.csproj", "{C31E7DAB-389B-4213-B981-56179687F03C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra.Data.Tests", "ToDo.Infra.Data.Tests\ToDo.Infra.Data.Tests.csproj", "{51504B0E-5C02-45E7-B0E8-FF6B15B6AA12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Infra.Data.Tests", "ToDo.Infra.Data.Tests\ToDo.Infra.Data.Tests.csproj", "{51504B0E-5C02-45E7-B0E8-FF6B15B6AA12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Application", "ToDo.Application\ToDo.Application.csproj", "{568D8CD4-0E08-4435-A6FB-6AE5DC824C62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Application", "ToDo.Application\ToDo.Application.csproj", "{568D8CD4-0E08-4435-A6FB-6AE5DC824C62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Application.Tests", "ToDo.Application.Tests\ToDo.Application.Tests.csproj", "{29A0921B-419F-4377-8167-4E286BA718AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Application.Tests", "ToDo.Application.Tests\ToDo.Application.Tests.csproj", "{29A0921B-419F-4377-8167-4E286BA718AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.IntegrationTests", "ToDo.IntegrationTests\ToDo.IntegrationTests.csproj", "{72359FAC-EA45-4689-8DD0-6F791DA1709B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{29A0921B-419F-4377-8167-4E286BA718AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A0921B-419F-4377-8167-4E286BA718AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A0921B-419F-4377-8167-4E286BA718AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72359FAC-EA45-4689-8DD0-6F791DA1709B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72359FAC-EA45-4689-8DD0-6F791DA1709B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72359FAC-EA45-4689-8DD0-6F791DA1709B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72359FAC-EA45-4689-8DD0-6F791DA1709B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

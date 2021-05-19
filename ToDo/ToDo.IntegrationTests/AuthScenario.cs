@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDo.Application.Services.UserService
+namespace ToDo.IntegrationTests
 {
-    public interface IUserService
+    public enum AuthScenario
     {
-        UserAuthContext GetUserAuthContext();
+        Authenticated,
+        Unauthenticated
     }
 }
