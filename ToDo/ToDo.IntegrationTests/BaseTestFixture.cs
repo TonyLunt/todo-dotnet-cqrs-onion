@@ -90,10 +90,9 @@ namespace ToDo.IntegrationTests
             return await GetTestResponse<TResponseModel>(response);
         }
 
-        protected async Task<TestResponse<TResponseModel>> Delete<TResponseModel>(HttpClient httpClient, string url) where TResponseModel : class
+        protected async Task<HttpResponseMessage> Delete(HttpClient httpClient, string url)
         {
-            var response = await httpClient.DeleteAsync(url);
-            return await GetTestResponse<TResponseModel>(response);
+            return await httpClient.DeleteAsync(url);
         }
 
         protected async Task<TestResponse<TResponseModel>> Get<TResponseModel>(HttpClient httpClient, string url) where TResponseModel : class
@@ -107,7 +106,7 @@ namespace ToDo.IntegrationTests
             var testResponse = new TestResponse<TResponseModel>()
             {
                 HttpStatusCode = response.StatusCode,
-                IsOk = response.IsSuccessStatusCode
+                IsSuccess = response.IsSuccessStatusCode
             };
             if (response.IsSuccessStatusCode)
             {

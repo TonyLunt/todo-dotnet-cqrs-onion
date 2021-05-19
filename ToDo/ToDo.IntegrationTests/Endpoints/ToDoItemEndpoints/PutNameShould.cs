@@ -6,18 +6,18 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Api;
-using ToDo.Application.Features.ToDoLists.Commands.RenameToDoListCommand;
-using ToDo.Application.Features.ToDoLists.ViewModels;
+using ToDo.Application.Features.ToDoItems.Commands.RenameToDoItemCommand;
+using ToDo.Application.Features.ToDoItems.ViewModels;
 using Xunit;
 
-namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
+namespace ToDo.IntegrationTests.Endpoints.ToDoItemEndpoints
 {
     public class PutNameShould : BaseTestFixture
     {
-        private readonly string _baseUrl = "/api/v1/ToDoList/Name";
+        private readonly string _baseUrl = "/api/v1/ToDoItem/Name";
         public PutNameShould(WebApplicationFactory<Startup> factory) : base(factory)
         {
-            
+
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
                 var command = await GetCommand();
-                var response = await Put<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var response = await Put<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.True(response.IsSuccess);
             }
         }
@@ -37,7 +37,7 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
                 var command = await GetCommand();
-                var response = await Put<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var response = await Put<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.Equal(command.Name, response.ResponseModel.Name);
             }
         }
@@ -49,7 +49,7 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
             {
                 var command = await GetCommand();
                 command.Name = GetRandomString(2000);
-                var response = await Put<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var response = await Put<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.Equal(HttpStatusCode.BadRequest, response.HttpStatusCode);
             }
         }
@@ -61,15 +61,15 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
             {
                 var command = await GetCommand();
                 command.Id = Guid.NewGuid();
-                var response = await Put<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var response = await Put<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.Equal(HttpStatusCode.NotFound, response.HttpStatusCode);
             }
         }
 
-        private async Task<RenameToDoListCommand> GetCommand()
+        private async Task<RenameToDoItemCommand> GetCommand()
         {
-            var existing = await GetExistingToDoList();
-            return new RenameToDoListCommand()
+            var existing = await GetExistingToDoItem();
+            return new RenameToDoItemCommand()
             {
                 Id = existing.Id,
                 Name = Guid.NewGuid().ToString()

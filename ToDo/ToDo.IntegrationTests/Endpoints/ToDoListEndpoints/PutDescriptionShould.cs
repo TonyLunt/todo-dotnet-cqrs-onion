@@ -6,18 +6,18 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Api;
-using ToDo.Application.Features.ToDoLists.Commands.RenameToDoListCommand;
+using ToDo.Application.Features.ToDoLists.Commands.UpdateToDoListDescriptionCommand;
 using ToDo.Application.Features.ToDoLists.ViewModels;
 using Xunit;
 
 namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
 {
-    public class PutNameShould : BaseTestFixture
+    public class PutDescriptionShould : BaseTestFixture
     {
-        private readonly string _baseUrl = "/api/v1/ToDoList/Name";
-        public PutNameShould(WebApplicationFactory<Startup> factory) : base(factory)
+        private readonly string _baseUrl = "/api/v1/ToDoList/Description";
+        public PutDescriptionShould(WebApplicationFactory<Startup> factory) : base(factory)
         {
-            
+
         }
 
         [Fact]
@@ -32,23 +32,23 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
         }
 
         [Fact]
-        public async Task ReturnUpdatedName()
+        public async Task ReturnUpdatedDescription()
         {
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
                 var command = await GetCommand();
                 var response = await Put<ToDoListViewModel>(httpClient, _baseUrl, command);
-                Assert.Equal(command.Name, response.ResponseModel.Name);
+                Assert.Equal(command.Description, response.ResponseModel.Description);
             }
         }
 
         [Fact]
-        public async Task ReturnBadRequestIfNameTooLong()
+        public async Task ReturnBadRequestIfDescriptionTooLong()
         {
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
                 var command = await GetCommand();
-                command.Name = GetRandomString(2000);
+                command.Description = GetRandomString(2000);
                 var response = await Put<ToDoListViewModel>(httpClient, _baseUrl, command);
                 Assert.Equal(HttpStatusCode.BadRequest, response.HttpStatusCode);
             }
@@ -66,13 +66,13 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
             }
         }
 
-        private async Task<RenameToDoListCommand> GetCommand()
+        private async Task<UpdateToDoListDescriptionCommand> GetCommand()
         {
             var existing = await GetExistingToDoList();
-            return new RenameToDoListCommand()
+            return new UpdateToDoListDescriptionCommand()
             {
                 Id = existing.Id,
-                Name = Guid.NewGuid().ToString()
+                Description = Guid.NewGuid().ToString()
             };
         }
     }

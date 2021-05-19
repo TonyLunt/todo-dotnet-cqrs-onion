@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDo.Api.Attributes;
 using ToDo.Api.Services;
 using ToDo.Application;
 using ToDo.Application.Services.UserService;
@@ -37,6 +38,10 @@ namespace ToDo.Api
             });
             services.AddHttpContextAccessor();
             services.AddTransient<IUserService, UserService>();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(CustomExceptionFilterAttribute));
+            });
             services.AddApplicationLayer();
             services.AddInfraDataLayer();
         }

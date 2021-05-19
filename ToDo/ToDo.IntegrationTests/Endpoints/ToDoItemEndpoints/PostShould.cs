@@ -9,16 +9,16 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ToDo.Api;
-using ToDo.Application.Features.ToDoLists.Commands.CreateToDoListCommand;
-using ToDo.Application.Features.ToDoLists.ViewModels;
+using ToDo.Application.Features.ToDoItems.Commands.CreateToDoItemCommand;
+using ToDo.Application.Features.ToDoItems.ViewModels;
 using ToDo.Infra.Data;
 using Xunit;
 
-namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
+namespace ToDo.IntegrationTests.Endpoints.ToDoItemEndpoints
 {
     public class PostShould : BaseTestFixture
     {
-        private readonly string _baseUrl = "/api/v1/ToDoList";
+        private readonly string _baseUrl = "/api/v1/ToDoItem";
         public PostShould(WebApplicationFactory<Startup> factory) : base(factory)
         {
         }
@@ -28,8 +28,8 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
         {
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
-                var command = GetCommand();
-                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var command = await GetCommand();
+                var testResponse = await Post<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.True(testResponse.IsSuccess);
             }
         }
@@ -39,8 +39,8 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
         {
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
-                var command = GetCommand();
-                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var command = await GetCommand();
+                var testResponse = await Post<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.NotEqual(default, testResponse.ResponseModel.Id);
             }
         }
@@ -50,31 +50,32 @@ namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
         {
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
-                var command = GetCommand();
+                var command = await GetCommand();
                 command.Name = GetRandomString(2000);
-                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                var testResponse = await Post<ToDoItemViewModel>(httpClient, _baseUrl, command);
                 Assert.Equal(HttpStatusCode.BadRequest, testResponse.HttpStatusCode);
             }
         }
 
         [Fact]
-        public async Task ReturnBadRequestIfDescriptionTooLong()
+        public async Task ReturnNotFoundIfInvalidToDoListId()
         {
             using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
             {
-                var command = GetCommand();
-                command.Description = GetRandomString(2000);
-                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
-                Assert.Equal(HttpStatusCode.BadRequest, testResponse.HttpStatusCode);
+                var command = await GetCommand();
+                command.ToDoListId = Guid.NewGuid();
+                var response = await Post<ToDoItemViewModel>(httpClient, _baseUrl, command);
+                Assert.Equal(HttpStatusCode.NotFound, response.HttpStatusCode);
             }
         }
 
-        private CreateToDoListCommand GetCommand()
+        private async Task<CreateToDoItemCommand> GetCommand()
         {
-            return new CreateToDoListCommand()
+            var toDoList = await GetExistingToDoList();
+            return new CreateToDoItemCommand()
             {
-                Description = Guid.NewGuid().ToString(),
-                Name = Guid.NewGuid().ToString()
+                Name = Guid.NewGuid().ToString(),
+                ToDoListId = toDoList.Id
             };
         }
 

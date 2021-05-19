@@ -10,6 +10,7 @@ using ToDo.Application.Features.ToDoItems.Commands.DeleteToDoItemCommand;
 using ToDo.Application.Features.ToDoItems.Commands.RenameToDoItemCommand;
 using ToDo.Application.Features.ToDoItems.Commands.UpdateToDoItemStatusCommand;
 using ToDo.Application.Features.ToDoItems.Queries.GetToDoItemQuery;
+using ToDo.Application.Features.ToDoItems.Queries.GetToDoItemsForListQuery;
 using ToDo.Application.Features.ToDoItems.ViewModels;
 
 namespace ToDo.Api.Controllers
@@ -25,6 +26,13 @@ namespace ToDo.Api.Controllers
         public async Task<ActionResult<IEnumerable<ToDoItemViewModel>>> Get([FromRoute] Guid id)
         {
             var response = await Mediator.Send(new GetToDoItemQuery() { Id = id }, new System.Threading.CancellationToken());
+            return Ok(response);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ToDoItemViewModel>>> GetToDoItems([FromQuery] Guid toDoListId)
+        {
+            var response = await Mediator.Send(new GetToDoItemsForListQuery() { Id = toDoListId }, new System.Threading.CancellationToken());
             return Ok(response);
         }
 
@@ -44,7 +52,7 @@ namespace ToDo.Api.Controllers
         }
 
         [HttpPut]
-        [Route("Description")]
+        [Route("Status")]
         public async Task<ActionResult<ToDoItemViewModel>> UpdateStatus(UpdateToDoItemStatusCommand command)
         {
             var response = await Mediator.Send(command, new System.Threading.CancellationToken());
@@ -52,9 +60,10 @@ namespace ToDo.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<ToDoItemViewModel>> Delete(DeleteToDoItemCommand command)
+        [Route("{id}")]
+        public async Task<ActionResult<ToDoItemViewModel>> Delete([FromRoute] Guid id)
         {
-            var response = await Mediator.Send(command, new System.Threading.CancellationToken());
+            var response = await Mediator.Send(new DeleteToDoItemCommand() { Id = id }, new System.Threading.CancellationToken());
             return Ok(response);
         }
     }

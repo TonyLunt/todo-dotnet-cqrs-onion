@@ -14,6 +14,6 @@ namespace ToDo.IntegrationTests
 
         public HttpStatusCode HttpStatusCode { get; set; }
         public TResponseModel ResponseModel { get; set; }
-        public bool IsOk { get; set; }
+        public bool IsSuccess { get; set; }
     }
 }

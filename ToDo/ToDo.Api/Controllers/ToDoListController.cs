@@ -37,14 +37,6 @@ namespace ToDo.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("{id}/Items")]
-        public async Task<ActionResult<IEnumerable<ToDoListViewModel>>> GetToDoItems([FromRoute] Guid id)
-        {
-            var response = await Mediator.Send(new GetToDoItemsForListQuery() { Id = id }, new System.Threading.CancellationToken());
-            return Ok(response);
-        }
-
         [HttpPost]
         public async Task<ActionResult<ToDoListViewModel>> Create(CreateToDoListCommand command)
         {
@@ -69,7 +61,8 @@ namespace ToDo.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<ToDoListViewModel>> DeleteToDoList(Guid id)
+        [Route("{id}")]
+        public async Task<ActionResult<ToDoListViewModel>> DeleteToDoList([FromRoute]Guid id)
         {
             var response = await Mediator.Send(new DeleteToDoListCommand() { Id = id }, new System.Threading.CancellationToken());
             return Ok(response);
