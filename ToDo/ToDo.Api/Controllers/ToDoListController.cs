@@ -16,8 +16,6 @@ using ToDo.Application.Features.ToDoLists.ViewModels;
 
 namespace ToDo.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ToDoListController : BaseController
     {
         public ToDoListController(IMediator mediator) : base(mediator)

@@ -1,21 +1,82 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using ToDo.Api;
+using ToDo.Application.Features.ToDoLists.Commands.CreateToDoListCommand;
+using ToDo.Application.Features.ToDoLists.ViewModels;
+using ToDo.Infra.Data;
+using Xunit;
 
 namespace ToDo.IntegrationTests.Endpoints.ToDoListEndpoints
 {
-    class PostShould
+    public class PostShould : BaseTestFixture
     {
-        public PostShould()
+        private readonly string _baseUrl = "/api/v1/ToDoList";
+        public PostShould(WebApplicationFactory<Startup> factory) : base(factory)
         {
-            //var scope = (Factory.Services.GetRequiredService<IServiceScopeFactory>()).CreateScope();
-            //var context = scope.ServiceProvider.GetRequiredService<ToDoContext>();
-            //var cross = await GetSeededCross(context);
-            //var response = await httpClient.GetAsync($"");
-            //var content = await response.Content.ReadAsStringAsync();
-            //var models = JsonDeserialize<List<mymodel>>(content);
         }
+
+        [Fact]
+        public async Task ReturnOkResponse()
+        {
+            using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
+            {
+                var command = GetCommand();
+                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                Assert.True(testResponse.IsOk);
+            }
+        }
+
+        [Fact]
+        public async Task ReturnPopulatedId()
+        {
+            using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
+            {
+                var command = GetCommand();
+                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                Assert.NotEqual(default, testResponse.ResponseModel.Id);
+            }
+        }
+
+        [Fact]
+        public async Task ReturnBadRequestIfNameTooLong()
+        {
+            using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
+            {
+                var command = GetCommand();
+                command.Name = GetRandomString(2000);
+                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                Assert.Equal(HttpStatusCode.BadRequest, testResponse.HttpStatusCode);
+            }
+        }
+
+        [Fact]
+        public async Task ReturnBadRequestIfDescriptionTooLong()
+        {
+            using (var httpClient = GetHttpClient(AuthScenario.Authenticated))
+            {
+                var command = GetCommand();
+                command.Description = GetRandomString(2000);
+                var testResponse = await Post<ToDoListViewModel>(httpClient, _baseUrl, command);
+                Assert.Equal(HttpStatusCode.BadRequest, testResponse.HttpStatusCode);
+            }
+        }
+
+        private CreateToDoListCommand GetCommand()
+        {
+            return new CreateToDoListCommand()
+            {
+                Description = Guid.NewGuid().ToString(),
+                Name = Guid.NewGuid().ToString()
+            };
+        }
+
     }
 }
